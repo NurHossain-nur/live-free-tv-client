@@ -1,0 +1,27 @@
+/* 1. Use the new Tailwind v4 import */
+@import "tailwindcss";
+
+/* 2. Custom Scrollbar Utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 3. Glowing animation for the red LIVE badge */
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.4);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
