@@ -112,7 +112,7 @@ const LiveStreamingPlayer = () => {
       <style>{`
         .live-app-container {
           display: flex;
-          height: 100vh;
+          height: 100dvh;
           background-color: #0f172a;
           color: #f8fafc;
           font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -127,6 +127,7 @@ const LiveStreamingPlayer = () => {
           display: flex;
           flex-direction: column;
           z-index: 10;
+          overflow: hidden;
         }
 
         .sidebar-header {
