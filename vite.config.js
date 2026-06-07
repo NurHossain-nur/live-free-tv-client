@@ -19,6 +19,12 @@ export default defineConfig({
         target: 'http://localhost:5000',
         ws: true,
       },
+      // forward it to the real domain without triggering CORS.
+      '/api-football': {
+        target: 'https://m.allfootballapp.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-football/, '')
+      }
     },
   },
 });
