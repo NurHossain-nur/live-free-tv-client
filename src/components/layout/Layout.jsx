@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { InstallAppBanner } from '../application/InstallAppBanner';
 
 // ==========================================
 // 1. PWA INSTALL HOOK (With Custom Pre-Prompt & iOS)
@@ -209,8 +210,10 @@ export const Layout = ({ children }) => {
   const showDownloadUI = isInstallable && !isInstalled;
 
   return (
-    <div className="min-h-screen bg-[#0f111a] flex flex-col relative">
+    <div className="min-h-screen bg-[#0f111a] flex flex-col relative pb-16">
       <TopNav />
+
+      <InstallAppBanner />
 
       {/* 🔽 TOP DOWNLOAD BANNER */}
       {showDownloadUI && !dismissBanner && (
@@ -247,17 +250,17 @@ export const Layout = ({ children }) => {
       </main>
 
       {/* ↘️ FLOATING DOWNLOAD BUTTON (Bottom Right) */}
-      {showDownloadUI && (
+      {/* {showDownloadUI && (
         <button
           onClick={handleInstall}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 px-5 py-3 rounded-full font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-transform hover:scale-105 active:scale-95 animate-bounce-slow"
+          className="fixed bottom-16 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 px-5 py-3 rounded-full font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(20,184,166,0.4)] transition-transform hover:scale-105 active:scale-95 animate-bounce-slow"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
           <span className="hidden sm:inline">Install App</span>
         </button>
-      )}
+      )} */}
       
     </div>
   );
