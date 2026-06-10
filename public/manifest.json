@@ -1,0 +1,22 @@
+{
+  "short_name": "SportBC",
+  "name": "SportBC PRO Live TV",
+  "icons": [
+    {
+      "src": "/sportbc_logo_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/sportbc_logo_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#161925",
+  "background_color": "#0f111a"
+}

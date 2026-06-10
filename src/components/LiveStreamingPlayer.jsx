@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Hls from 'hls.js';
+import { NativeAd } from './add/NativeAd';
 
 const LiveStreamingPlayer = () => {
   const [channels, setChannels] = useState([]);
@@ -322,6 +323,12 @@ const LiveStreamingPlayer = () => {
           </div>
 
           <div className="channel-list">
+
+            {/* 💰 SPOT 2: THE SIDEBAR AD 💰 */}
+            <div style={{ marginBottom: '12px' }}>
+              <NativeAd />
+            </div>
+            
             {isFetchingChannels ? (
               <div className="spinner"></div>
             ) : filteredChannels.length > 0 ? (
@@ -372,6 +379,28 @@ const LiveStreamingPlayer = () => {
                   style={{ width: '100%', height: '100%', outline: 'none' }}
                 />
               </div>
+
+              {/* 💰 SPOT 1: THE VIDEO FOOTER AD 💰 */}
+              <div style={{ 
+                marginTop: '24px', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                width: '100%'
+              }}>
+                <span style={{ 
+                  fontSize: '10px', 
+                  color: '#64748b', 
+                  textTransform: 'uppercase', 
+                  letterSpacing: '1px', 
+                  fontWeight: 'bold', 
+                  marginBottom: '4px' 
+                }}>
+                  Advertisement
+                </span>
+                <NativeAd />
+              </div>
+
             </div>
           )}
 

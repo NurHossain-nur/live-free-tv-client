@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { NativeAd } from '../add/NativeAd';
 
 export const MatchTabDashboard = () => {
   const navigate = useNavigate();
@@ -132,6 +133,11 @@ export const MatchTabDashboard = () => {
         </div>
       </div>
 
+      {/* 💰 SPOT 1: TOP OF FEED AD */}
+      <div className="w-full mt-4 mb-2">
+        <NativeAd />
+      </div>
+
       {/* 📋 MATCH LIST CONTROLLER VIEW */}
       <div className="w-full flex flex-col gap-6 mt-2">
         {loadingMatches ? (
@@ -143,8 +149,9 @@ export const MatchTabDashboard = () => {
             No live fixtures or results found for this selection.
           </div>
         ) : (
-          Object.entries(groupedData).map(([date, dateMatches]) => (
-            <div key={date} className="w-full flex flex-col">
+          Object.entries(groupedData).map(([date, dateMatches], index) => (
+            <React.Fragment key={date}>
+            <div  className="w-full flex flex-col">
               
               {/* 📅 SECTION DATE HEADER */}
               <div className="w-full bg-gray-900/40 border-y border-gray-800 px-4 py-2 text-xs font-bold text-gray-400 tracking-wider uppercase mb-3 rounded-md text-center">
@@ -224,6 +231,14 @@ export const MatchTabDashboard = () => {
                 ))}
               </div>
             </div>
+
+            {/* 💰 SPOT 2: IN-FEED AD (Shows after the first date group) */}
+              {index === 0 && (
+                <div className="w-full my-4">
+                  <NativeAd />
+                </div>
+              )}
+            </React.Fragment>
           ))
         )}
       </div>

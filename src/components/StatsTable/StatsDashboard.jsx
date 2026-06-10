@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StatsTable } from './StatsTable';
 import { StatsRanking } from './StatsRanking';
 import { StatsFixtures } from './StatsFixtures';
+import { NativeAd } from '../add/NativeAd';
 
 export const StatsDashboard = () => {
   const [leagues, setLeagues] = useState([]);
@@ -130,6 +131,12 @@ export const StatsDashboard = () => {
 
       {/* 📄 DYNAMIC CONTENT AREA */}
       <div className="w-full p-3">
+
+        {/* 💰 SPOT 1: TOP OF STATS AD 💰 */}
+        <div className="w-full">
+          <NativeAd />
+        </div>
+
         <div className="w-full rounded-lg overflow-hidden shadow-lg border border-[#343c45]">
           {activeSubTab?.title === 'Table' && <StatsTable key={activeSubTab.url} url={activeSubTab.url} />}
           {activeSubTab?.title === 'Goals' && <StatsRanking key={activeSubTab.url} url={activeSubTab.url} type="Goals" />}

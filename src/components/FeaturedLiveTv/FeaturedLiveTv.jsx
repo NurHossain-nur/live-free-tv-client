@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Hls from 'hls.js';
+import { NativeAd } from '../add/NativeAd';
 
 export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
   const featuredChannels = [
@@ -169,6 +170,14 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
             Live
           </span>
         </div>
+      </div>
+
+      {/* --- ADVERTISEMENT SECTION --- */}
+      <div className="w-full mt-6 mb-2 flex flex-col items-center">
+        <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-1">
+          Advertisement
+        </span>
+        <NativeAd />
       </div>
 
       {/* --- BOTTOM SECTION: 3 LIVE CHANNELS GRID --- */}
