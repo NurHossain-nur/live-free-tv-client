@@ -8,6 +8,7 @@ import { HomePageUI } from './pages/HomePageUI';
 import { MatchDetail } from './components/MatchDetail/MatchDetail';
 import { PlayerRatingView } from './components/MatchDetail/PlayerRatingView';
 import { StatsDashboard } from './components/StatsTable/StatsDashboard';
+import TestStreamsPage from './components/testStrems/TestStreams';
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
           <Route path="/player-rating" element={<PlayerRatingView />} />
 
           <Route path="/stats" element={<StatsDashboard />} />
+
+          {/* <Route path="/test-streams" element={<TestStreamsPage />} /> */}
           
           {/* Fallback 404 Route */}
           <Route path="*" element={

@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Hls from 'hls.js';
+import { io } from 'socket.io-client';
 import { NativeAd } from '../add/NativeAd';
+
+// 🔥 1. Setup Socket Connection (Replace with your actual Render URL if not using .env)
+const BACKEND_URL = import.meta.env.VITE_API_BASE_URL || 'https://your-render-backend.onrender.com';
+// const socket = io(BACKEND_URL, { autoConnect: false });
+
+const socket = io(BACKEND_URL, { 
+  autoConnect: false, 
+  transports: ['websocket'] // ⬅️ Add this line!
+});
 
 export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
   const featuredChannels = [
@@ -15,7 +25,38 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
   const [loading, setLoading] = useState(false);
   const [isVideoBuffering, setIsVideoBuffering] = useState(false);
   
+  // 🔥 2. State for Real-Time Viewer Count
+  const [liveViewers, setLiveViewers] = useState(1);
+  
   const videoRef = useRef(null);
+
+  // 🔥 3. Connect to Socket on Mount and listen for viewer updates
+  useEffect(() => {
+    socket.connect();
+
+    socket.on('viewer_update', (count) => {
+      setLiveViewers(count);
+    });
+
+    return () => {
+      socket.off('viewer_update');
+      socket.disconnect();
+    };
+  }, []);
+
+  // 🔥 4. Tell the backend which channel you are currently watching
+  useEffect(() => {
+    if (activeChannel) {
+      socket.emit('join_channel', activeChannel.id);
+    }
+
+    // 🧹 CLEANUP: Explicitly leave the room when switching channels or unmounting
+    return () => {
+      if (activeChannel) {
+        socket.emit('leave_channel', activeChannel.id);
+      }
+    };
+  }, [activeChannel]);
 
   // Sync internal state if a channel is selected from a parent component
   useEffect(() => {
@@ -159,16 +200,37 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
         </div>
 
         {/* Video Footer Metadata Panel */}
-        <div className="p-4 border-t border-gray-900 bg-[#0b0f19] flex items-center justify-between">
+        <div className="p-4 border-t border-gray-900 bg-[#0b0f19] flex items-center justify-between gap-4">
           <div className="flex flex-col gap-1">
             <span className="text-xs uppercase font-extrabold tracking-wider text-teal-400">Now Streaming</span>
             <h2 className="text-gray-100 font-bold text-base sm:text-lg">
               {loading ? "Connecting..." : activeChannel?.name}
             </h2>
           </div>
-          <span className="px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-teal-500/10 text-teal-400 border border-teal-500/20">
-            Live
-          </span>
+          
+          {/* 🔥 5. NEW TRUE REAL-TIME VIEWER PANEL WITH EYE ICON */}
+          <div className="flex items-center gap-4 shrink-0">
+            <div className="flex items-center gap-2 bg-teal-500/10 border border-teal-500/20 px-3 py-1.5 rounded-lg shadow-inner">
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                strokeWidth={2} 
+                stroke="currentColor" 
+                className="w-4 h-4 text-teal-400 animate-pulse"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+              <span className="text-teal-400 text-xs font-black tracking-wide font-mono">
+                {liveViewers.toLocaleString()}
+              </span>
+            </div>
+            
+            <span className="hidden sm:inline-block px-2.5 py-1 text-[10px] uppercase font-bold tracking-wider rounded-md bg-teal-500/10 text-teal-400 border border-teal-500/20">
+              Live
+            </span>
+          </div>
         </div>
       </div>
 
