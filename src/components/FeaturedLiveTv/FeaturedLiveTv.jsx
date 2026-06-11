@@ -266,7 +266,7 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
         {/* Seamless Scrolling Text Track */}
         <div className="flex-1 overflow-hidden pl-28 sm:pl-32 flex">
           <div className="animate-tv-ticker items-center cursor-default text-sm font-medium tracking-wide">
-            
+            {/* blank  */}
             {/* --- TRACK 1 --- */}
             <div className="flex items-center">
               {/* Bangla Text */}
