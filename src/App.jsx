@@ -29,7 +29,7 @@ function App() {
 
           <Route path="/stats" element={<StatsDashboard />} />
 
-          {/* <Route path="/test-streams" element={<TestStreamsPage />} /> */}
+          <Route path="/test-streams" element={<TestStreamsPage />} />
           
           {/* Fallback 404 Route */}
           <Route path="*" element={
