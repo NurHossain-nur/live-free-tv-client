@@ -75,6 +75,7 @@ const LiveViewerBadge = ({ channelId }) => {
 export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
   const featuredChannels = [
     { id: 1, name: "T Sports HD", category: "Sports", color: "from-emerald-500 to-teal-500" },
+    { id: 15, name: "Ptv Sports", category: "Sports", color: "from-purple-500 to-indigo-600" },
     { id: 5, name: "Somoy Tv", category: "News", color: "from-red-500 to-rose-600" },
     { id: 44, name: "BTV News", category: "News", color: "from-blue-500 to-cyan-500" }
   ];
@@ -83,6 +84,8 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
   const [streamData, setStreamData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isVideoBuffering, setIsVideoBuffering] = useState(false);
+
+  const [streamError, setStreamError] = useState(false);
   
   const videoRef = useRef(null);
 
@@ -142,7 +145,11 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              hls.startLoad();
+              // 🔥 A 404 throws a fatal network error
+              console.log('Stream link is dead (404) or network failed.');
+              setStreamError(true); 
+              setIsVideoBuffering(false);
+              hls.destroy();
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
               hls.recoverMediaError();
@@ -271,7 +278,7 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
             <div className="flex items-center">
               {/* Bangla Text */}
               <span className="text-gray-200 whitespace-nowrap">
-                টি-স্পোর্টস-এ বাফারিং হচ্ছে? কোনো সমস্যা ছাড়াই বিশ্বকাপ লাইভ দেখতে সময় টিভি বা বিটিভি সিলেক্ট করুন!
+                টি-স্পোর্টস-এ বাফারিং হচ্ছে? কোনো সমস্যা ছাড়াই বিশ্বকাপ লাইভ দেখতে Ptv Sports বা বিটিভি সিলেক্ট করুন!
               </span>
               
               {/* TV Channel Dot Separator */}
@@ -279,7 +286,7 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
               
               {/* English Text */}
               <span className="text-amber-400 whitespace-nowrap">
-                Experiencing buffering on T-Sports? Switch to Somoy TV or BTV to watch the live World Cup stream!
+                Experiencing buffering on T-Sports? Switch to PTV Sports or BTV to watch the live World Cup stream!
               </span>
               
               {/* TV Channel Dot Separator */}
@@ -290,7 +297,7 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
             <div className="flex items-center">
               {/* Bangla Text */}
               <span className="text-gray-200 whitespace-nowrap">
-                টি-স্পোর্টস-এ বাফারিং হচ্ছে? কোনো সমস্যা ছাড়াই বিশ্বকাপ লাইভ দেখতে সময় টিভি বা বিটিভি সিলেক্ট করুন!
+                টি-স্পোর্টস-এ বাফারিং হচ্ছে? কোনো সমস্যা ছাড়াই বিশ্বকাপ লাইভ দেখতে Ptv Sports বা বিটিভি সিলেক্ট করুন!
               </span>
               
               {/* TV Channel Dot Separator */}
@@ -298,7 +305,7 @@ export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
               
               {/* English Text */}
               <span className="text-amber-400 whitespace-nowrap">
-                Experiencing buffering on T-Sports? Switch to Somoy TV or BTV to watch the live World Cup stream!
+                Experiencing buffering on T-Sports? Switch to PTV Sports or BTV to watch the live World Cup stream!
               </span>
               
               {/* TV Channel Dot Separator */}
