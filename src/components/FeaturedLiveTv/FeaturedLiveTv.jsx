@@ -74,8 +74,8 @@ const LiveViewerBadge = ({ channelId }) => {
 // 🎬 MAIN VIDEO COMPONENT
 export const FeaturedLiveTv = ({ onSelectChannel, selectedChannelId }) => {
   const featuredChannels = [
-    { id: 1, name: "T Sports HD", category: "Sports", color: "from-emerald-500 to-teal-500" },
     { id: 15, name: "Ptv Sports", category: "Sports", color: "from-purple-500 to-indigo-600" },
+    { id: 1, name: "T Sports HD", category: "Sports", color: "from-emerald-500 to-teal-500" },
     { id: 5, name: "Somoy Tv", category: "News", color: "from-red-500 to-rose-600" },
     { id: 44, name: "BTV News", category: "News", color: "from-blue-500 to-cyan-500" }
   ];
